@@ -1,22 +1,23 @@
-﻿using System;
+﻿
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using sagetaway.Models;
-using Sagetaway.Data;    // Assuming AdminHotel is in this namespace
+using Sagetaway.Data;    
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace sagetaway.Controllers
 {
 
-    public class AdminHotelsController : Controller
+    public class AdminAttractionController : Controller
     {
         private readonly SagetawayContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AdminHotelsController(SagetawayContext context, IWebHostEnvironment webHostEnvironment)
+        public AdminAttractionController(SagetawayContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
@@ -24,22 +25,22 @@ namespace sagetaway.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var hotels = _context.AdminHotels
+            var attractions = _context.AdminAttraction
                       .Where(h => h.Status == 1)
                       .ToList();
 
-            return Json(new { data = hotels });
+            return Json(new { data = attractions });
         }
 
-        // POST: api/AdminHotels/Create
+        // POST: api/AdminAttraction/Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] AdminHotel adminHotel)
+        public async Task<IActionResult> Create([FromForm] AdminAttraction adminAttraction)
         {
-            ModelState.Remove(nameof(adminHotel.Image1));
-            ModelState.Remove(nameof(adminHotel.Image2));
-            ModelState.Remove(nameof(adminHotel.Image3));
-            ModelState.Remove(nameof(adminHotel.Image4));
-            ModelState.Remove(nameof(adminHotel.Image5));
+            ModelState.Remove(nameof(adminAttraction.Image1));
+            ModelState.Remove(nameof(adminAttraction.Image2));
+            ModelState.Remove(nameof(adminAttraction.Image3));
+            ModelState.Remove(nameof(adminAttraction.Image4));
+            ModelState.Remove(nameof(adminAttraction.Image5));
             if (!ModelState.IsValid)
             {
                 var friendlyFieldNames = new Dictionary<string, string>
@@ -52,9 +53,9 @@ namespace sagetaway.Controllers
                     { "Name", "Place Name" },
                     { "ContactNumber", "Contact Number" },
                     { "LocationName", "Location Name" },
-                    { "Price", "Hotel Price" },
+                    { "Price", "Attraction Price" },
                     { "GoogleMapsEmbed", "Google Maps Embed Link" },
-                    { "Information", "Hotel Information" }
+                    { "Information", "Attraction Information" }
                 };
 
                 var errors = ModelState
@@ -71,11 +72,11 @@ namespace sagetaway.Controllers
             }
             var imageFields = new (IFormFile img, string imageUrlField)[]
         {
-            (adminHotel.Img1, "Image1"),
-            (adminHotel.Img2, "Image2"),
-            (adminHotel.Img3, "Image3"),
-            (adminHotel.Img4, "Image4"),
-            (adminHotel.Img5, "Image5")
+            (adminAttraction.Img1, "Image1"),
+            (adminAttraction.Img2, "Image2"),
+            (adminAttraction.Img3, "Image3"),
+            (adminAttraction.Img4, "Image4"),
+            (adminAttraction.Img5, "Image5")
         };
 
             // Handle each image upload dynamically
@@ -102,25 +103,25 @@ namespace sagetaway.Controllers
                     }
 
                     // Save the file URL in the corresponding Image field
-                    var propertyInfo = adminHotel.GetType().GetProperty(imageUrlField);
+                    var propertyInfo = adminAttraction.GetType().GetProperty(imageUrlField);
                     if (propertyInfo != null)
                     {
                         // Set the URL dynamically using reflection
-                        propertyInfo.SetValue(adminHotel, "/docs/" + fileName);
+                        propertyInfo.SetValue(adminAttraction, "/docs/" + fileName);
                     }
                 }
             }
             try
             {
-                // Add the AdminHotel entity to the DbContext
-                _context.AdminHotels.Add(adminHotel);
+                // Add the AdminAttraction entity to the DbContext
+                _context.AdminAttraction.Add(adminAttraction);
 
                 // Save changes to the database
                 var rowsAffected = await _context.SaveChangesAsync();
 
                 if (rowsAffected > 0)
                 {
-                    return Ok(new { success = true, message = "Hotel added successfully!" });
+                    return Ok(new { success = true, message = "Attraction added successfully!" });
                 }
                 else
                 {
@@ -139,23 +140,23 @@ namespace sagetaway.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([FromForm] AdminHotel adminHotel)
+        public async Task<IActionResult> Update([FromForm] AdminHotel adminAttraction)
         {
-            // Ensure the hotel ID is set
-            if (adminHotel.Id == 0)
+            // Ensure the transpo ID is set
+            if (adminAttraction.Id == 0)
             {
-                return BadRequest(new { success = false, message = "Invalid hotel ID" });
+                return BadRequest(new { success = false, message = "Invalid attraction ID" });
             }
-            ModelState.Remove(nameof(adminHotel.Image1));
-            ModelState.Remove(nameof(adminHotel.Image2));
-            ModelState.Remove(nameof(adminHotel.Image3));
-            ModelState.Remove(nameof(adminHotel.Image4));
-            ModelState.Remove(nameof(adminHotel.Image5));
-            ModelState.Remove(nameof(adminHotel.Img1));
-            ModelState.Remove(nameof(adminHotel.Img2));
-            ModelState.Remove(nameof(adminHotel.Img3));
-            ModelState.Remove(nameof(adminHotel.Img4));
-            ModelState.Remove(nameof(adminHotel.Img5));
+            ModelState.Remove(nameof(adminAttraction.Image1));
+            ModelState.Remove(nameof(adminAttraction.Image2));
+            ModelState.Remove(nameof(adminAttraction.Image3));
+            ModelState.Remove(nameof(adminAttraction.Image4));
+            ModelState.Remove(nameof(adminAttraction.Image5));
+            ModelState.Remove(nameof(adminAttraction.Img1));
+            ModelState.Remove(nameof(adminAttraction.Img2));
+            ModelState.Remove(nameof(adminAttraction.Img3));
+            ModelState.Remove(nameof(adminAttraction.Img4));
+            ModelState.Remove(nameof(adminAttraction.Img5));
             if (!ModelState.IsValid)
             {
                 var friendlyFieldNames = new Dictionary<string, string>
@@ -168,9 +169,9 @@ namespace sagetaway.Controllers
                     { "Name", "Place Name" },
                     { "ContactNumber", "Contact Number" },
                     { "LocationName", "Location Name" },
-                    { "Price", "Hotel Price" },
+                    { "Price", "Attraction Price" },
                     { "GoogleMapsEmbed", "Google Maps Embed Link" },
-                    { "Information", "Hotel Information" }
+                    { "Information", "Attraction Information" }
                 };
 
                 var errors = ModelState
@@ -185,29 +186,29 @@ namespace sagetaway.Controllers
 
                 return BadRequest(new { success = false, message = errors });
             }
-            // Find the existing hotel in the database
-            var existingHotel = await _context.AdminHotels.FindAsync(adminHotel.Id);
-            if (existingHotel == null)
+            // Find the existing attraction in the database
+            var existingAttraction = await _context.AdminAttraction.FindAsync(adminAttraction.Id);
+            if (existingAttraction == null)
             {
-                return NotFound(new { success = false, message = "Hotel not found" });
+                return NotFound(new { success = false, message = "Attraction not found" });
             }
 
-            // Update the hotel properties
-            existingHotel.Name = adminHotel.Name;
-            existingHotel.ContactNumber = adminHotel.ContactNumber;
-            existingHotel.LocationName = adminHotel.LocationName;
-            existingHotel.Price = adminHotel.Price;
-            existingHotel.GoogleMapsEmbed = adminHotel.GoogleMapsEmbed;
-            existingHotel.Information = adminHotel.Information;
+            // Update the attraction properties
+            existingAttraction.Name = adminAttraction.Name;
+            existingAttraction.ContactNumber = adminAttraction.ContactNumber;
+            existingAttraction.LocationName = adminAttraction.LocationName;
+            existingAttraction.Price = adminAttraction.Price;
+            existingAttraction.GoogleMapsEmbed = adminAttraction.GoogleMapsEmbed;
+            existingAttraction.Information = adminAttraction.Information;
 
             // Handle image updates (if any)
             var imageFields = new (IFormFile img, string imageUrlField)[]
             {
-        (adminHotel.Img1, "Image1"),
-        (adminHotel.Img2, "Image2"),
-        (adminHotel.Img3, "Image3"),
-        (adminHotel.Img4, "Image4"),
-        (adminHotel.Img5, "Image5")
+        (adminAttraction.Img1, "Image1"),
+        (adminAttraction.Img2, "Image2"),
+        (adminAttraction.Img3, "Image3"),
+        (adminAttraction.Img4, "Image4"),
+        (adminAttraction.Img5, "Image5")
             };
 
             foreach (var (img, imageUrlField) in imageFields)
@@ -228,10 +229,10 @@ namespace sagetaway.Controllers
                         await img.CopyToAsync(stream);
                     }
 
-                    var propertyInfo = existingHotel.GetType().GetProperty(imageUrlField);
+                    var propertyInfo = existingAttraction.GetType().GetProperty(imageUrlField);
                     if (propertyInfo != null)
                     {
-                        propertyInfo.SetValue(existingHotel, "/docs/" + fileName);
+                        propertyInfo.SetValue(existingAttraction, "/docs/" + fileName);
                     }
                 }
             }
@@ -239,31 +240,31 @@ namespace sagetaway.Controllers
             // Save the changes
             await _context.SaveChangesAsync();
 
-            return Ok(new { success = true, message = "Hotel updated successfully!" });
+            return Ok(new { success = true, message = "Attraction updated successfully!" });
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            // Find the hotel by id
-            var hotel = await _context.AdminHotels
+            // Find the attraction by id
+            var attraction = await _context.AdminAttraction
                 .Where(h => h.Id == id && h.Status == 1) // Ensure status is active (1)
                 .FirstOrDefaultAsync();
 
-            // Check if the hotel exists and has a status of 1 (active)
-            if (hotel == null)
+            // Check if the attraction exists and has a status of 1 (active)
+            if (attraction == null)
             {
-                return NotFound(new { success = false, message = "Hotel not found or already deleted." });
+                return NotFound(new { success = false, message = "Attraction not found or already deleted." });
             }
 
             // Update the status to 0 (deleted)
-            hotel.Status = 0;
+            attraction.Status = 0;
 
             // Save changes
             try
             {
                 await _context.SaveChangesAsync();
-                return Ok(new { success = true, message = "Hotel has been marked as deleted." });
+                return Ok(new { success = true, message = "Attraction has been marked as deleted." });
             }
             catch (Exception ex)
             {

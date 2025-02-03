@@ -4,17 +4,17 @@
 
 <!-- Jumbotron Section -->
 <div class="p-5 mb-4 bg-light rounded-3">
-    <h1 class="display-4">Manage Hotels</h1>
-    <p class="lead">Easily manage hotel listings, prices, and contact details.</p>
+    <h1 class="display-4">Manage Attraction</h1>
+    <p class="lead">Easily manage Attraction listings, prices, and contact details.</p>
 </div>
 
 <!-- Main Container -->
 <div class="container">
-    <!-- Row with Add Hotel Button at the top-right -->
+    <!-- Row with Add Attraction Button at the top-right -->
     <div class="row mb-3">
         <div class="col text-right">
-            <a data-bs-toggle="modal" data-bs-target="#addHotelModal" class="btn btn-success">
-                <i class="fas fa-plus"></i> Add Hotel
+            <a data-bs-toggle="modal" data-bs-target="#addAttractionModal" class="btn btn-success">
+                <i class="fas fa-plus"></i> Add Attraction
             </a>
         </div>
     </div>
@@ -22,7 +22,7 @@
     <!-- Responsive Table (Empty for now) -->
     <div class="row">
         <div class="col">
-            <table id="hotelTable" class="display nowrap table table-striped" style="width:100%">
+            <table id="AttractionTable" class="display nowrap table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Place Name</th>
@@ -37,17 +37,17 @@
     </div>
 </div>
 
-<!-- Add Hotel Modal -->
-<div class="modal fade" id="addHotelModal" tabindex="-1" aria-labelledby="addHotelModalLabel" aria-hidden="true">
+<!-- Add Attraction Modal -->
+<div class="modal fade" id="addAttractionModal" tabindex="-1" aria-labelledby="addAttractionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addHotelModalLabel">Add Hotel</h5>
+                <h5 class="modal-title" id="addAttractionModalLabel">Add Attraction</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="saveHotelData(this);   return false;">
-            <div class="modal-body">
-               
+            <form onsubmit="saveAttractionData(this);   return false;">
+                <div class="modal-body">
+
                     <!-- Image Upload Fields -->
                     <div class="mb-3">
                         <label for="image1" class="form-label">Image 1</label>
@@ -73,7 +73,7 @@
                     <!-- Additional Fields -->
                     <div class="mb-3">
                         <label for="nameOfPlace" class="form-label">Name of Place</label>
-                        <input type="text" class="form-control" id="nameOfPlace" name="NameOfPlace" maxlength="512">
+                        <input type="text" class="form-control" id="nameOfPlace" name="Name" maxlength="512">
                     </div>
                     <div class="mb-3">
                         <label for="contactNumber" class="form-label">Contact Number</label>
@@ -92,32 +92,32 @@
                         <input type="text" class="form-control" id="googleMapsEmbed" name="GoogleMapsEmbed">
                     </div>
                     <div class="mb-3">
-                        <label for="hotelInformation" class="form-label">Hotel Information</label>
-                        <textarea class="form-control" id="hotelInformation" name="HotelInformation" rows="3"></textarea>
+                        <label for="AttractionInformation" class="form-label">Attraction Information</label>
+                        <textarea class="form-control" id="AttractionInformation" name="Information" rows="3"></textarea>
                     </div>
-               
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save</button>
-            </div>
-             </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Edit Hotel Modal -->
-<!-- Edit Hotel Modal -->
-<div class="modal fade" id="editHotelModal" tabindex="-1" aria-labelledby="editHotelModalLabel" aria-hidden="true">
+<!-- Edit Attraction Modal -->
+<!-- Edit Attraction Modal -->
+<div class="modal fade" id="editAttractionModal" tabindex="-1" aria-labelledby="editAttractionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editHotelModalLabel">Edit Hotel</h5>
+                <h5 class="modal-title" id="editAttractionModalLabel">Edit Attraction</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="updateHotelData(this); return false;">
+            <form onsubmit="updateAttractionData(this); return false;">
                 <div class="modal-body">
-                    <input type="hidden" id="hotelId_edit" name="Id">
+                    <input type="hidden" id="AttractionId_edit" name="Id">
                     <!-- Image Upload Fields -->
                     <div class="mb-3">
                         <label for="image1" class="form-label">Image 1</label>
@@ -158,7 +158,7 @@
                     <!-- Additional Fields -->
                     <div class="mb-3">
                         <label for="nameOfPlace" class="form-label">Name of Place</label>
-                        <input type="text" class="form-control" id="nameOfPlace_edit" name="NameOfPlace" maxlength="512">
+                        <input type="text" class="form-control" id="nameOfPlace_edit" name="Name" maxlength="512">
                     </div>
                     <div class="mb-3">
                         <label for="contactNumber" class="form-label">Contact Number</label>
@@ -177,8 +177,8 @@
                         <input type="text" class="form-control" id="googleMapsEmbed_edit" name="GoogleMapsEmbed">
                     </div>
                     <div class="mb-3">
-                        <label for="hotelInformation" class="form-label">Hotel Information</label>
-                        <textarea class="form-control" id="hotelInformation_edit" name="HotelInformation" rows="3"></textarea>
+                        <label for="AttractionInformation" class="form-label">Attraction Information</label>
+                        <textarea class="form-control" id="AttractionInformation_edit" name="Information" rows="3"></textarea>
                     </div>
 
                 </div>
@@ -208,27 +208,27 @@
     });
 
     function load_table() {
-        $('#hotelTable').DataTable({
+        $('#AttractionTable').DataTable({
             ajax: {
                 type: "GET",
-                url: "@Url.Action("Index", "AdminHotels")",
+                url: "@Url.Action("Index", "AdminAttraction")",
                 dataSrc: 'data'
             },
             columns: [
-                { data: 'nameOfPlace' },
+                { data: 'name' },
                 { data: 'contactNumber' },
                 { data: 'locationName' },
                 { data: 'price', render: $.fn.dataTable.render.number(',', '.', 2, 'R ') },
                 {
                     data: 'id',
                     render: function(data, type, row, meta) {
-                        var argument = `data-id="${row['id']}" data-nameOfPlace="${row['nameOfPlace']}" data-locationName="${row['locationName']}" data-contactNumber="${row['contactNumber']}"  data-price="${row['price']}" data-googleMapsEmbed="${row['googleMapsEmbed']}"  data-hotelInformation="${row['hotelInformation']}"`;
+                        var argument = `data-id="${row['id']}" data-nameOfPlace="${row['name']}" data-locationName="${row['locationName']}" data-contactNumber="${row['contactNumber']}"  data-price="${row['price']}" data-googleMapsEmbed="${row['googleMapsEmbed']}"  data-AttractionInformation="${row['information']}"`;
                         var images = `data-image1="${row['image1']}" data-image2="${row['image2']}" data-image3="${row['image3']}" data-image4="${row['image4']}" data-image5="${row['image5']}"`;
                         return `
-                            <button class="btn btn-info text-white" onclick="editHotel(this)" ${argument} ${images}>
+                            <button class="btn btn-info text-white" onclick="editAttraction(this)" ${argument} ${images}>
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            <button class="btn btn-danger text-white" onclick="deleteHotel(${data})">
+                            <button class="btn btn-danger text-white" onclick="deleteAttraction(${data})">
                                 <i class="fas fa-trash-alt"></i> Delete
                             </button>
                         `;
@@ -238,14 +238,14 @@
         });
     }
 
-    function editHotel(t) {
+    function editAttraction(t) {
         $('#nameOfPlace_edit').val($(t).attr('data-nameOfPlace'));
         $('#contactNumber_edit').val($(t).attr('data-contactNumber'));
         $('#locationName_edit').val($(t).attr('data-locationName'));
         $('#price_edit').val($(t).attr('data-price'));
         $('#googleMapsEmbed_edit').val($(t).attr('data-googleMapsEmbed'));
-        $('#hotelInformation_edit').val($(t).attr('data-hotelInformation'));
-        $('#hotelId_edit').val($(t).attr('data-id'));
+        $('#AttractionInformation_edit').val($(t).attr('data-AttractionInformation'));
+        $('#AttractionId_edit').val($(t).attr('data-id'));
 
         for (let i = 1; i <= 5; i++) {
             const imgKey = $(t).attr(`data-image${i}`);
@@ -258,17 +258,21 @@
                 $(`#image${i}Preview`).hide();
             }
         }
-        $('#editHotelModal').modal('show');
+        $('#editAttractionModal').modal('show');
     }
 
-    function saveHotelData(form) {
+    function saveAttractionData(form) {
         var formData = new FormData(form);
 
-        Swal.fire({ title: 'Saving...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+        Swal.fire({
+            title: 'Saving...',
+            allowOutsideClick: false,
+            didOpen: () => { Swal.showLoading(); }
+        });
 
         $.ajax({
             type: "POST",
-            url: "@Url.Action("Create", "AdminHotels")",
+            url: "@Url.Action("Create", "AdminAttraction")",
             data: formData,
             processData: false,
             contentType: false,
@@ -276,21 +280,24 @@
                 Swal.close();
                 if (response.success) {
                     Swal.fire('Successful!', response.message, 'success');
-                    $('#addHotelModal').modal('hide');
+                    $('#addAttractionModal').modal('hide');
                     window.location.reload();
                 } else {
-                    Swal.fire('Whoops!', response.message, 'warning');
+                    Swal.fire('Whoops!', response.message.join('<br>'), 'warning');
                 }
             },
             error: function (xhr) {
                 Swal.close();
-                let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                let errorResponse = xhr.responseJSON && xhr.responseJSON.message
+                    ? xhr.responseJSON.message.join('<br>')
+                    : 'An unexpected error occurred.';
                 Swal.fire('Whoops!', errorResponse, 'error');
             }
         });
     }
 
-    function deleteHotel(id) {
+
+    function deleteAttraction(id) {
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -305,31 +312,31 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "@Url.Action("Delete", "AdminHotels")",
+                    url: "@Url.Action("Delete", "AdminAttraction")",
                     data: { id: id },
                     success: function (response) {
                         Swal.close();
                         Swal.fire('Deleted!', response.message, 'success');
-                        $('#hotelTable').DataTable().ajax.reload();
+                        $('#AttractionTable').DataTable().ajax.reload();
                     },
                     error: function (xhr) {
                         Swal.close();
                         let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
-                        Swal.fire('Whoops!', errorResponse, 'error');
+                        Swal.fire('Whoops!', errorResponse.join('<br>'), 'error');
                     }
                 });
             }
         });
     }
 
-    function updateHotelData(form) {
+    function updateAttractionData(form) {
         var formData = new FormData(form);
 
         Swal.fire({ title: 'Updating...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
 
         $.ajax({
             type: "POST",
-            url: "@Url.Action("Update", "AdminHotels")",
+            url: "@Url.Action("Update", "AdminAttraction")",
             data: formData,
             processData: false,
             contentType: false,
@@ -337,16 +344,16 @@
                 Swal.close();
                 if (response.success) {
                     Swal.fire('Updated!', response.message, 'success');
-                    $('#editHotelModal').modal('hide');
+                    $('#editAttractionModal').modal('hide');
                     window.location.reload();
                 } else {
-                    Swal.fire('Whoops!', response.message, 'warning');
+                    Swal.fire('Whoops!', response.message.join('<br>'), 'warning');
                 }
             },
             error: function (xhr) {
                 Swal.close();
                 let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
-                Swal.fire('Whoops!', errorResponse, 'error');
+                Swal.fire('Whoops!', errorResponse.join('<br>'), 'error');
             }
         });
     }

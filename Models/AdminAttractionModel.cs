@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace sagetaway.Models
 {
-    public class AdminHotel
+    public class AdminAttraction
     {
         [Key]
         public int Id { get; set; }

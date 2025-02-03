@@ -11,5 +11,8 @@ namespace Sagetaway.Data
         public DbSet<Admins> Admins { get; set; }
         public DbSet<AdminHotel> AdminHotels { get; set; }
 
+        public DbSet<AdminTranspo> AdminTranspo { get; set; }
+
+        public DbSet<AdminAttraction> AdminAttraction { get; set; }
     }
 }

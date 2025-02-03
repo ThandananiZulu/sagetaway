@@ -73,7 +73,7 @@
                     <!-- Additional Fields -->
                     <div class="mb-3">
                         <label for="nameOfPlace" class="form-label">Name of Place</label>
-                        <input type="text" class="form-control" id="nameOfPlace" name="NameOfPlace" maxlength="512">
+                        <input type="text" class="form-control" id="nameOfPlace" name="Name" maxlength="512">
                     </div>
                     <div class="mb-3">
                         <label for="contactNumber" class="form-label">Contact Number</label>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="hotelInformation" class="form-label">Hotel Information</label>
-                        <textarea class="form-control" id="hotelInformation" name="HotelInformation" rows="3"></textarea>
+                        <textarea class="form-control" id="hotelInformation" name="Information" rows="3"></textarea>
                     </div>
 
                 </div>
@@ -158,7 +158,7 @@
                     <!-- Additional Fields -->
                     <div class="mb-3">
                         <label for="nameOfPlace" class="form-label">Name of Place</label>
-                        <input type="text" class="form-control" id="nameOfPlace_edit" name="NameOfPlace" maxlength="512">
+                        <input type="text" class="form-control" id="nameOfPlace_edit" name="Name" maxlength="512">
                     </div>
                     <div class="mb-3">
                         <label for="contactNumber" class="form-label">Contact Number</label>
@@ -178,7 +178,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="hotelInformation" class="form-label">Hotel Information</label>
-                        <textarea class="form-control" id="hotelInformation_edit" name="HotelInformation" rows="3"></textarea>
+                        <textarea class="form-control" id="hotelInformation_edit" name="Information" rows="3"></textarea>
                     </div>
 
                 </div>
@@ -215,14 +215,14 @@
                 dataSrc: 'data'
             },
             columns: [
-                { data: 'nameOfPlace' },
+                { data: 'name' },
                 { data: 'contactNumber' },
                 { data: 'locationName' },
                 { data: 'price', render: $.fn.dataTable.render.number(',', '.', 2, 'R ') },
                 {
                     data: 'id',
                     render: function(data, type, row, meta) {
-                        var argument = `data-id="${row['id']}" data-nameOfPlace="${row['nameOfPlace']}" data-locationName="${row['locationName']}" data-contactNumber="${row['contactNumber']}"  data-price="${row['price']}" data-googleMapsEmbed="${row['googleMapsEmbed']}"  data-hotelInformation="${row['hotelInformation']}"`;
+                        var argument = `data-id="${row['id']}" data-nameOfPlace="${row['name']}" data-locationName="${row['locationName']}" data-contactNumber="${row['contactNumber']}"  data-price="${row['price']}" data-googleMapsEmbed="${row['googleMapsEmbed']}"  data-hotelInformation="${row['information']}"`;
                         var images = `data-image1="${row['image1']}" data-image2="${row['image2']}" data-image3="${row['image3']}" data-image4="${row['image4']}" data-image5="${row['image5']}"`;
                         return `
                             <button class="btn btn-info text-white" onclick="editHotel(this)" ${argument} ${images}>
@@ -264,7 +264,11 @@
     function saveHotelData(form) {
         var formData = new FormData(form);
 
-        Swal.fire({ title: 'Saving...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+        Swal.fire({
+            title: 'Saving...',
+            allowOutsideClick: false,
+            didOpen: () => { Swal.showLoading(); }
+        });
 
         $.ajax({
             type: "POST",
@@ -279,16 +283,19 @@
                     $('#addHotelModal').modal('hide');
                     window.location.reload();
                 } else {
-                    Swal.fire('Whoops!', response.message, 'warning');
+                    Swal.fire('Whoops!', response.message.join('<br>'), 'warning');
                 }
             },
             error: function (xhr) {
                 Swal.close();
-                let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                let errorResponse = xhr.responseJSON && xhr.responseJSON.message
+                    ? xhr.responseJSON.message.join('<br>')
+                    : 'An unexpected error occurred.';
                 Swal.fire('Whoops!', errorResponse, 'error');
             }
         });
     }
+
 
     function deleteHotel(id) {
         Swal.fire({
@@ -315,7 +322,7 @@
                     error: function (xhr) {
                         Swal.close();
                         let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
-                        Swal.fire('Whoops!', errorResponse, 'error');
+                        Swal.fire('Whoops!', errorResponse.join('<br>'), 'error');
                     }
                 });
             }
@@ -340,13 +347,13 @@
                     $('#editHotelModal').modal('hide');
                     window.location.reload();
                 } else {
-                    Swal.fire('Whoops!', response.message, 'warning');
+                    Swal.fire('Whoops!', response.message.join('<br>'), 'warning');
                 }
             },
             error: function (xhr) {
                 Swal.close();
                 let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
-                Swal.fire('Whoops!', errorResponse, 'error');
+                Swal.fire('Whoops!', errorResponse.join('<br>'), 'error');
             }
         });
     }
