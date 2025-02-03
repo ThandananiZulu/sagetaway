@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <!-- Gradient Header -->
+                <div class="card-header bg-gradient-to-r from-blue-600 to-blue-800 text-white text-center py-4">
+                    <h2 class="fw-bold" id="adminWelcome">Welcome, Admin!</h2>
+                    <p class="text-light lead">Manage and monitor your platform efficiently.</p>
+                </div>
+
+                <div class="card-body p-5">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="fw-bold">User Management</h5>
+                                    <p>View and manage user activities and data.</p>
+                                    <button class="btn btn-outline-primary w-100">Manage Users</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="fw-bold">Analytics Dashboard</h5>
+                                    <p>Track performance metrics and key insights.</p>
+                                    <button class="btn btn-outline-primary w-100">View Analytics</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="fw-bold">Settings</h5>
+                                    <p>Customize your admin settings and preferences.</p>
+                                    <button class="btn btn-outline-primary w-100">Manage Settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-center bg-light">
+                    <small class="text-muted">Sagetaway © 2025</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script>
+   
+        $(document).ready(function () {
+  
+        var adminName = Cookies.get('AdminName');
+       
+        if (adminName) {
+            $('#adminWelcome').text(`Welcome, ${adminName}!`);
+        } else {
+            $('#adminWelcome').text('Welcome, Admin!');
+        }
+    });
+
+</script>
+
+<style>
+    .bg-gradient-to-r {
+        background: linear-gradient(to right, #2563eb, #1e3a8a);
+    }
+
+    .card {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .btn-outline-primary {
+        border: 2px solid #2563eb;
+        color: #2563eb;
+    }
+
+        .btn-outline-primary:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .fw-bold {
+        font-weight: bold;
+    }
+</style>

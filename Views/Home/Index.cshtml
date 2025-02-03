@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">Explore South Africa</h1>
+        <p class="lead">Discover attractions, find hotels, and plan your transport easily.</p>
+    </div>
+
+    <!-- Pills for Navigation -->
+    <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-outline-primary mx-2">Attractions</button>
+        <button class="btn btn-outline-primary mx-2">Hotels</button>
+        <button class="btn btn-outline-primary mx-2">Transport</button>
+    </div>
+
+    <!-- Search Section -->
+    <div class="text-center mb-5">
+        <div class="mb-3">
+            <select class="form-select w-75 mx-auto" aria-label="Category Select">
+                <option selected>Choose a category</option>
+                <option value="1">Attractions</option>
+                <option value="2">Hotels</option>
+                <option value="3">Transport</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <input type="text" class="form-control w-50 me-2" placeholder="Search by name or location">
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="row">
+        <!-- Tile 1 -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://21century.zakheletech.co.za/assets/img/logo.png" width="200" height="250" class="card-img-top" alt="Golden Mile Beach">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Golden Mile Beach</h5>
+                    <p class="card-text">Location: Durban Central</p>
+                    <p class="card-text" style="margin-top: -10px;">Contact Info: 031 334 5565</p>
+                    <p class="card-text fw-bold">Price: Free</p>
+                    <a asp-area="" asp-controller="Home" asp-action="Details" class="btn btn-secondary mt-3 btn-sm">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 2 -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://21century.zakheletech.co.za/assets/img/W.png" width="200" height="250" class="card-img-top" alt="uShaka Marine World">
+                <div class="card-body text-center">
+                    <h5 class="card-title">uShaka Marine World</h5>
+                    <p class="card-text">Location: South Beach</p>
+                    <p class="card-text" style="margin-top: -10px;">Contact Info: 031 334 5565</p>
+                    <p class="card-text fw-bold">Price: R250</p>
+                    <a asp-area="" asp-controller="Home" asp-action="Details" class="btn btn-secondary mt-3 btn-sm">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

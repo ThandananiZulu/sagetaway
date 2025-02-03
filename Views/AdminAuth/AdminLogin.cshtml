@@ -1,0 +1,84 @@
+﻿@model Sagetaway.Models.Admins
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3>Admin Login</h3>
+                </div>
+                <div class="card-body">
+                    <form id="adminLoginForm" method="post">
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="PasswordInput" class="form-label">Password</label>
+                            <input asp-for="PasswordInput" type="password" class="form-control" />
+                            <span asp-validation-for="PasswordInput" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#adminLoginForm").submit(function (event) {
+            event.preventDefault();  // Prevent page refresh
+
+            var formData = $(this).serialize();  // Serialize form data
+
+             $.ajax({
+        type: "POST",
+         url: "@Url.Action("AdminLogin", "AdminAuth")",
+        data: formData,
+        xhrFields: {
+            withCredentials: true // Allow cookies for authentication
+        },
+        success: function (response) {
+            if (response.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful!',
+                    text: 'Welcome back, ' + response.adminName,
+                    confirmButtonText: 'Go to Dashboard'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '@Url.Action("Dashboard", "AdminAuth")';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: response.message
+                });
+            }
+        },
+         error: function (xhr) {
+                let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Whoops!',
+                    text: errorResponse
+                });
+             }
+    });
+
+        });
+    });
+</script>

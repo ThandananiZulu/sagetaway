@@ -1,0 +1,353 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Jumbotron Section -->
+<div class="p-5 mb-4 bg-light rounded-3">
+    <h1 class="display-4">Manage Hotels</h1>
+    <p class="lead">Easily manage hotel listings, prices, and contact details.</p>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <!-- Row with Add Hotel Button at the top-right -->
+    <div class="row mb-3">
+        <div class="col text-right">
+            <a data-bs-toggle="modal" data-bs-target="#addHotelModal" class="btn btn-success">
+                <i class="fas fa-plus"></i> Add Hotel
+            </a>
+        </div>
+    </div>
+
+    <!-- Responsive Table (Empty for now) -->
+    <div class="row">
+        <div class="col">
+            <table id="hotelTable" class="display nowrap table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Place Name</th>
+                        <th>Contact Number</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Hotel Modal -->
+<div class="modal fade" id="addHotelModal" tabindex="-1" aria-labelledby="addHotelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addHotelModalLabel">Add Hotel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="saveHotelData(this);   return false;">
+                <div class="modal-body">
+
+                    <!-- Image Upload Fields -->
+                    <div class="mb-3">
+                        <label for="image1" class="form-label">Image 1</label>
+                        <input class="form-control" type="file" id="image1" name="Img1" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image2" class="form-label">Image 2</label>
+                        <input class="form-control" type="file" id="image2" name="Img2" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image3" class="form-label">Image 3</label>
+                        <input class="form-control" type="file" id="image3" name="Img3" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image4" class="form-label">Image 4</label>
+                        <input class="form-control" type="file" id="image4" name="Img4" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image5" class="form-label">Image 5</label>
+                        <input class="form-control" type="file" id="image5" name="Img5" accept="image/*">
+                    </div>
+
+                    <!-- Additional Fields -->
+                    <div class="mb-3">
+                        <label for="nameOfPlace" class="form-label">Name of Place</label>
+                        <input type="text" class="form-control" id="nameOfPlace" name="NameOfPlace" maxlength="512">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" id="contactNumber" name="ContactNumber" maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label for="locationName" class="form-label">Location Name</label>
+                        <input type="text" class="form-control" id="locationName" name="LocationName" maxlength="512">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price" name="Price" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label for="googleMapsEmbed" class="form-label">Google Maps Embed</label>
+                        <input type="text" class="form-control" id="googleMapsEmbed" name="GoogleMapsEmbed">
+                    </div>
+                    <div class="mb-3">
+                        <label for="hotelInformation" class="form-label">Hotel Information</label>
+                        <textarea class="form-control" id="hotelInformation" name="HotelInformation" rows="3"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Hotel Modal -->
+<!-- Edit Hotel Modal -->
+<div class="modal fade" id="editHotelModal" tabindex="-1" aria-labelledby="editHotelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editHotelModalLabel">Edit Hotel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="updateHotelData(this); return false;">
+                <div class="modal-body">
+                    <input type="hidden" id="hotelId_edit" name="Id">
+                    <!-- Image Upload Fields -->
+                    <div class="mb-3">
+                        <label for="image1" class="form-label">Image 1</label>
+                        <input class="form-control" type="file" id="image1" name="Img1" accept="image/*" data-image-id="image1">
+                        <div id="image1Preview" class="mt-2 justify-content-center d-flex" style="display: none;">
+                            <img id="image1PreviewImg" src="" alt="Image 1 Preview" class="img-fluid" width="300" height="100" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image2" class="form-label">Image 2</label>
+                        <input class="form-control" type="file" id="image2" name="Img2" accept="image/*" data-image-id="image2">
+                        <div id="image2Preview" class="mt-2 justify-content-center d-flex" style="display: none;">
+                            <img id="image2PreviewImg" src="" alt="Image 2 Preview" class="img-fluid" width="300" height="100" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image3" class="form-label">Image 3</label>
+                        <input class="form-control" type="file" id="image3" name="Img3" accept="image/*" data-image-id="image3">
+                        <div id="image3Preview" class="mt-2 justify-content-center d-flex" style="display: none;">
+                            <img id="image3PreviewImg" src="" alt="Image 3 Preview" class="img-fluid" width="300" height="100" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image4" class="form-label">Image 4</label>
+                        <input class="form-control" type="file" id="image4" name="Img4" accept="image/*" data-image-id="image4">
+                        <div id="image4Preview" class="mt-2 justify-content-center d-flex" style="display: none;">
+                            <img id="image4PreviewImg" src="" alt="Image 4 Preview" class="img-fluid" width="300" height="100" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image5" class="form-label">Image 5</label>
+                        <input class="form-control" type="file" id="image5" name="Img5" accept="image/*" data-image-id="image5">
+                        <div id="image5Preview" class="mt-2 justify-content-center d-flex" style="display: none;">
+                            <img id="image5PreviewImg" src="" alt="Image 5 Preview" class="img-fluid" width="300" height="100" />
+                        </div>
+                    </div>
+
+                    <!-- Additional Fields -->
+                    <div class="mb-3">
+                        <label for="nameOfPlace" class="form-label">Name of Place</label>
+                        <input type="text" class="form-control" id="nameOfPlace_edit" name="NameOfPlace" maxlength="512">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" id="contactNumber_edit" name="ContactNumber" maxlength="100">
+                    </div>
+                    <div class="mb-3">
+                        <label for="locationName" class="form-label">Location Name</label>
+                        <input type="text" class="form-control" id="locationName_edit" name="LocationName" maxlength="512">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price_edit" name="Price" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label for="googleMapsEmbed" class="form-label">Google Maps Embed</label>
+                        <input type="text" class="form-control" id="googleMapsEmbed_edit" name="GoogleMapsEmbed">
+                    </div>
+                    <div class="mb-3">
+                        <label for="hotelInformation" class="form-label">Hotel Information</label>
+                        <textarea class="form-control" id="hotelInformation_edit" name="HotelInformation" rows="3"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jQuery (necessary for DataTables and other plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        load_table();
+    });
+
+    function load_table() {
+        $('#hotelTable').DataTable({
+            ajax: {
+                type: "GET",
+                url: "@Url.Action("Index", "AdminHotels")",
+                dataSrc: 'data'
+            },
+            columns: [
+                { data: 'nameOfPlace' },
+                { data: 'contactNumber' },
+                { data: 'locationName' },
+                { data: 'price', render: $.fn.dataTable.render.number(',', '.', 2, 'R ') },
+                {
+                    data: 'id',
+                    render: function(data, type, row, meta) {
+                        var argument = `data-id="${row['id']}" data-nameOfPlace="${row['nameOfPlace']}" data-locationName="${row['locationName']}" data-contactNumber="${row['contactNumber']}"  data-price="${row['price']}" data-googleMapsEmbed="${row['googleMapsEmbed']}"  data-hotelInformation="${row['hotelInformation']}"`;
+                        var images = `data-image1="${row['image1']}" data-image2="${row['image2']}" data-image3="${row['image3']}" data-image4="${row['image4']}" data-image5="${row['image5']}"`;
+                        return `
+                            <button class="btn btn-info text-white" onclick="editHotel(this)" ${argument} ${images}>
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-danger text-white" onclick="deleteHotel(${data})">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        `;
+                    }
+                }
+            ]
+        });
+    }
+
+    function editHotel(t) {
+        $('#nameOfPlace_edit').val($(t).attr('data-nameOfPlace'));
+        $('#contactNumber_edit').val($(t).attr('data-contactNumber'));
+        $('#locationName_edit').val($(t).attr('data-locationName'));
+        $('#price_edit').val($(t).attr('data-price'));
+        $('#googleMapsEmbed_edit').val($(t).attr('data-googleMapsEmbed'));
+        $('#hotelInformation_edit').val($(t).attr('data-hotelInformation'));
+        $('#hotelId_edit').val($(t).attr('data-id'));
+
+        for (let i = 1; i <= 5; i++) {
+            const imgKey = $(t).attr(`data-image${i}`);
+            const baseUrl = window.location.origin;
+            const imgUrl = imgKey ? `${baseUrl}${imgKey}` : '';
+            if (imgUrl) {
+                $(`#image${i}Preview`).show();
+                $(`#image${i}PreviewImg`).attr('src', imgUrl);
+            } else {
+                $(`#image${i}Preview`).hide();
+            }
+        }
+        $('#editHotelModal').modal('show');
+    }
+
+    function saveHotelData(form) {
+        var formData = new FormData(form);
+
+        Swal.fire({ title: 'Saving...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Create", "AdminHotels")",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                Swal.close();
+                if (response.success) {
+                    Swal.fire('Successful!', response.message, 'success');
+                    $('#addHotelModal').modal('hide');
+                    window.location.reload();
+                } else {
+                    Swal.fire('Whoops!', response.message, 'warning');
+                }
+            },
+            error: function (xhr) {
+                Swal.close();
+                let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                Swal.fire('Whoops!', errorResponse, 'error');
+            }
+        });
+    }
+
+    function deleteHotel(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({ title: 'Deleting...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Delete", "AdminHotels")",
+                    data: { id: id },
+                    success: function (response) {
+                        Swal.close();
+                        Swal.fire('Deleted!', response.message, 'success');
+                        $('#hotelTable').DataTable().ajax.reload();
+                    },
+                    error: function (xhr) {
+                        Swal.close();
+                        let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                        Swal.fire('Whoops!', errorResponse, 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    function updateHotelData(form) {
+        var formData = new FormData(form);
+
+        Swal.fire({ title: 'Updating...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Update", "AdminHotels")",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                Swal.close();
+                if (response.success) {
+                    Swal.fire('Updated!', response.message, 'success');
+                    $('#editHotelModal').modal('hide');
+                    window.location.reload();
+                } else {
+                    Swal.fire('Whoops!', response.message, 'warning');
+                }
+            },
+            error: function (xhr) {
+                Swal.close();
+                let errorResponse = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                Swal.fire('Whoops!', errorResponse, 'error');
+            }
+        });
+    }
+</script>

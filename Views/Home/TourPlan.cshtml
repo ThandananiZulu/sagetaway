@@ -1,0 +1,135 @@
+﻿@* Tour Plan Page *@
+@{
+    ViewData["Title"] = "Tour Plans";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <!-- Tour Plan Name -->
+    <div class="text-center mb-4">
+        <h2 class="text-primary fw-bold">Amazing Durban Adventure</h2>
+    </div>
+
+    <!-- Download Tour Plan Button -->
+    <div class="text-center  mb-4">
+         <a class="btn btn-success " asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-plus-circle"></i> Add Item
+        </a>
+    </div>
+
+    <!-- List of Tour Plan Items -->
+    <div class="row gy-4 w-100">
+        <!-- Tile 1: Attraction -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-umbrella-beach"></i> uShaka Marine World
+                    </h5>
+                    <p class="card-text">
+                        <strong>Category:</strong> Attraction/Resort<br>
+                        <strong>Location:</strong> Durban, South Africa<br>
+                        <strong>Contact:</strong> +27 31 328 8000<br>
+                        <strong>Price:</strong> R200
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 2: Hotel -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-hotel"></i> The Oyster Box Hotel
+                    </h5>
+                    <p class="card-text">
+                        <strong>Category:</strong> Hotel<br>
+                        <strong>Location:</strong> Umhlanga, Durban<br>
+                        <strong>Contact:</strong> +27 31 514 5000<br>
+                        <strong>Price:</strong> R1,500
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 3: Transport -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-road"></i> King Shaka Airport Transfer
+                    </h5>
+                    <p class="card-text">
+                        <strong>Category:</strong> Transport<br>
+                        <strong>Location:</strong> Durban North, South Africa<br>
+                        <strong>Contact:</strong> +27 31 465 6789<br>
+                        <strong>Price:</strong> R350
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 4: Attraction -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-umbrella-beach"></i> Golden Mile Beach
+                    </h5>
+                    <p class="card-text">
+                        <strong>Category:</strong> Attraction/Resort<br>
+                        <strong>Location:</strong> Durban, South Africa<br>
+                        <strong>Contact:</strong> N/A<br>
+                        <strong>Price:</strong> R0
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Price Section -->
+    <div class="mt-5 text-center w-100">
+        <h4 class="text-primary">
+            <i class="fas fa-calculator"></i> Total Price: R2,050
+        </h4>
+    </div>
+
+    <!-- Download Tour Plan Button -->
+    <div class="text-center mt-4">
+        <button class="btn btn-primary btn-lg">
+            <i class="fas fa-download"></i> Download Tour Plan As PDF
+        </button>
+    </div>
+</div>
